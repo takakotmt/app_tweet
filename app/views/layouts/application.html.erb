@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TweetApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <header>
+    <div class="header-logo">
+      <a href="/">Tweet App</a>
+    </div>
+    <ul class="header-menu">
+      <% if @current_user %>
+      <a href="/about">Tweet Appとは</a>
+      <li>
+        ユーザー名：<%= session[:user_id] %>
+      </li>
+      <li>
+        <%= link_to("新規投稿","/posts/new") %>
+      </li>
+      <li>
+        <%= link_to("投稿一覧","/posts/index") %>
+      </li>
+      <li>
+        <%= link_to("新規登録","/signup") %>
+      </li>
+      <li>
+        <%=link_to("ユーザー一覧","/users/index") %>
+      </li>
+      <li>
+        <%=link_to("ログイン","/login") %>
+      </li>
+      <li>
+        <%=link_to("ログアウト","/logout",{method: :post}) %>
+      </li>
+      <% else %>
+      <li>
+        <%= link_to("新規登録","/signup") %>
+      </li>
+      <li>
+        <%=link_to("ログイン","/login") %>
+      </li>
+      <% end %>
+    </ul>
+
+  </header>
+    <% if flash[:notice] %>
+      <%= flash[:notice] %>
+    <% end %>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
